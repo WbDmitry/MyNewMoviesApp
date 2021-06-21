@@ -4,5 +4,6 @@ import com.example.mynewmoviesapp.model.entites.Actors
 
 interface Repository {
     fun getMoviesFromServer(): Actors
-    fun getMoviesFromLocalStorage():Actors
+    fun getMoviesFromLocalStorageCategoryOne():List<Actors>
+    fun getMoviesFromLocalStorageCategoryTwo():List<Actors>
 }
