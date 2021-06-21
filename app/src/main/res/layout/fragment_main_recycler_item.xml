@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_5_dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/itemMoviePoster"
+        android:layout_width="@dimen/width_70_dp"
+        android:layout_height="@dimen/height_120_dp"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/itemMovieTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_5_dp"
+        android:padding="@dimen/recycler_item_padding"
+        android:textSize="@dimen/textsize_21_sp"
+        app:layout_constraintBottom_toTopOf="@+id/itemMovieDescription"
+        app:layout_constraintStart_toEndOf="@id/itemMoviePoster"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Название фильма" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/itemMovieDescription"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="@dimen/margin_5_dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/recycler_item_padding"
+        app:layout_constraintStart_toEndOf="@id/itemMoviePoster"
+        app:layout_constraintTop_toBottomOf="@+id/itemMovieTitle"
+        tools:text="Описание фильма" />
+</androidx.constraintlayout.widget.ConstraintLayout>
