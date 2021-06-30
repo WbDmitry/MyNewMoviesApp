@@ -1,5 +1,6 @@
 package com.example.mynewmoviesapp.ui.main.movieInfo
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,13 +18,18 @@ class MovieInfoFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    @SuppressLint("SetTextI18n")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = with(binding) {
         super.onViewCreated(view, savedInstanceState)
             arguments?.getParcelable<Actors>(BUNDLE_EXTRA)?.let {
             val movie = it.movie
-            binding.movieTitle.text = movie.title
-            binding.movieDescription.text = movie.description
-            binding.moviePoster.setImageResource(movie.poster)
+            val name = it.name
+            val surname = it.surname
+            movieTitle.text = movie.title
+            movieDescription.text = movie.description
+            moviePoster.setImageResource(movie.poster)
+            actorName.text = "$name $surname"
+
         }
     }
 
