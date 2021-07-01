@@ -61,9 +61,8 @@ class MoviesListFragment : Fragment() {
     }
 
     private fun changeCategoryDataSet() {
-        if (isDataSetCategoryOne) {
-            viewModel.getMoviesFromLocalStorageCategoryTwo()
-        } else {
+        if (isDataSetCategoryOne) viewModel.getMoviesFromLocalStorageCategoryTwo()
+        else {
             viewModel.getMoviesFromLocalStorageCategoryOne()
         }
         isDataSetCategoryOne = !isDataSetCategoryOne
@@ -96,7 +95,7 @@ class MoviesListFragment : Fragment() {
                 mainFragmentLoadingLayout.visibility = View.GONE
                 Snackbar
                     .make(
-                        binding.mainFragmentFAB,
+                        mainFragmentFAB,
                         getString(R.string.error),
                         Snackbar.LENGTH_INDEFINITE
                     )
@@ -109,6 +108,4 @@ class MoviesListFragment : Fragment() {
     interface OnItemViewClickListener {
         fun inItemViewClick(actors: Actors)
     }
-
-
 }

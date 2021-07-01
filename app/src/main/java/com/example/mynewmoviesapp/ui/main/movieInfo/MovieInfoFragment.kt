@@ -13,7 +13,11 @@ class MovieInfoFragment : Fragment() {
     private var _binding: MovieInfoFragmentBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = MovieInfoFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -21,15 +25,12 @@ class MovieInfoFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = with(binding) {
         super.onViewCreated(view, savedInstanceState)
-            arguments?.getParcelable<Actors>(BUNDLE_EXTRA)?.let {
+        arguments?.getParcelable<Actors>(BUNDLE_EXTRA)?.let {
             val movie = it.movie
-            val name = it.name
-            val surname = it.surname
             movieTitle.text = movie.title
             movieDescription.text = movie.description
             moviePoster.setImageResource(movie.poster)
-            actorName.text = "$name $surname"
-
+            actorName.text = it.name + " " + it.surname
         }
     }
 
@@ -41,7 +42,7 @@ class MovieInfoFragment : Fragment() {
     companion object {
         const val BUNDLE_EXTRA = "actors"
 
-        fun newInstance(bundle: Bundle):MovieInfoFragment {
+        fun newInstance(bundle: Bundle): MovieInfoFragment {
             val fragment = MovieInfoFragment()
             fragment.arguments = bundle
             return fragment
