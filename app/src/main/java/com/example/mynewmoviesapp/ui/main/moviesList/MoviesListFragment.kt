@@ -14,6 +14,7 @@ import com.example.mynewmoviesapp.model.entites.Actors
 import com.example.mynewmoviesapp.ui.main.adapters.MoviesListAdapter
 import com.example.mynewmoviesapp.ui.main.movieInfo.MovieInfoFragment
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.movies_list_fragment.*
 
 class MoviesListFragment : Fragment() {
 
@@ -25,7 +26,7 @@ class MoviesListFragment : Fragment() {
     private lateinit var binding: MoviesListFragmentBinding
     private lateinit var viewModel: MoviesListViewModel
 
-    private val onListItemClickListener = object  : OnItemViewClickListener {
+    private val onListItemClickListener = object : OnItemViewClickListener {
         override fun inItemViewClick(actors: Actors) {
             activity?.supportFragmentManager?.let {
                 val bundle = Bundle()
@@ -35,12 +36,11 @@ class MoviesListFragment : Fragment() {
                     .addToBackStack("")
                     .commitAllowingStateLoss()
             }
-         }
+        }
     }
 
-    private val adapter = MoviesListAdapter(onListItemClickListener)
+    private var adapter = MoviesListAdapter(onListItemClickListener)
     private var isDataSetCategoryOne: Boolean = true
-
 
 
     override fun onCreateView(
@@ -61,28 +61,45 @@ class MoviesListFragment : Fragment() {
     }
 
     private fun changeCategoryDataSet() {
-        if (isDataSetCategoryOne) {
-            viewModel.getMoviesFromLocalStorageCategoryTwo()
-        } else {
+        if (isDataSetCategoryOne) viewModel.getMoviesFromLocalStorageCategoryTwo()
+        else {
             viewModel.getMoviesFromLocalStorageCategoryOne()
         }
         isDataSetCategoryOne = !isDataSetCategoryOne
     }
 
-    private fun renderData(appState: AppState) {
+    private fun renderData(appState: AppState) = with(binding) {
         when (appState) {
             is AppState.Success -> {
-                binding.mainFragmentLoadingLayout.visibility = View.GONE
-                adapter.setActors(appState.actors)
+                mainFragmentLoadingLayout.visibility = View.GONE
+                adapter = MoviesListAdapter(object : OnItemViewClickListener {
+                    override fun inItemViewClick(actors: Actors) {
+                        val manager = activity?.supportFragmentManager
+                        manager?.let { manager ->
+                            val bundle = Bundle().apply {
+                                putParcelable(MovieInfoFragment.BUNDLE_EXTRA, actors)
+                            }
+                            manager.beginTransaction()
+                                .add(R.id.container, MovieInfoFragment.newInstance(bundle))
+                                .addToBackStack("")
+                                .commitAllowingStateLoss()
+                        }
+                    }
+                }).apply { setActors(appState.actors) }
+                mainFragmentRecyclerView.adapter = adapter
             }
             is AppState.Loading -> {
-                binding.mainFragmentLoadingLayout.visibility = View.VISIBLE
+                mainFragmentLoadingLayout.visibility = View.VISIBLE
             }
             is AppState.Error -> {
-                binding.mainFragmentLoadingLayout.visibility = View.GONE
+                mainFragmentLoadingLayout.visibility = View.GONE
                 Snackbar
-                    .make(binding.mainFragmentFAB, getString(R.string.error), Snackbar.LENGTH_INDEFINITE)
-                    .setAction(getString(R.string.reload)) { viewModel.getMoviesFromLocalStorageCategoryOne()}
+                    .make(
+                        mainFragmentFAB,
+                        getString(R.string.error),
+                        Snackbar.LENGTH_INDEFINITE
+                    )
+                    .setAction(getString(R.string.reload)) { viewModel.getMoviesFromLocalStorageCategoryOne() }
                     .show()
             }
         }
@@ -91,6 +108,4 @@ class MoviesListFragment : Fragment() {
     interface OnItemViewClickListener {
         fun inItemViewClick(actors: Actors)
     }
-
-
 }

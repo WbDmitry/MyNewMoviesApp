@@ -25,9 +25,12 @@ class MoviesListViewModel(
         liveDataToObserve.value = AppState.Loading
         Thread {
             sleep(1000)
-            liveDataToObserve.postValue(AppState.Success(
-                if (isRussian) repository.getMoviesFromLocalStorageCategoryTwo()
-                else repository.getMoviesFromLocalStorageCategoryOne()))
+            liveDataToObserve.postValue(
+                AppState.Success(
+                    if (isRussian) repository.getMoviesFromLocalStorageCategoryTwo()
+                    else repository.getMoviesFromLocalStorageCategoryOne()
+                )
+            )
         }.start()
     }
 }

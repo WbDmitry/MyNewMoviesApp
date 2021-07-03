@@ -11,7 +11,7 @@ import com.example.mynewmoviesapp.databinding.FragmentMainRecyclerItemBinding
 import com.example.mynewmoviesapp.model.entites.Actors
 import com.example.mynewmoviesapp.ui.main.moviesList.MoviesListFragment
 
-class MoviesListAdapter (private var itemClickListener: MoviesListFragment.OnItemViewClickListener?) :
+class MoviesListAdapter(private var itemClickListener: MoviesListFragment.OnItemViewClickListener?) :
     RecyclerView.Adapter<MoviesListAdapter.MainViewHolder>() {
 
     private var ActorsData: List<Actors> = listOf()
@@ -37,9 +37,7 @@ class MoviesListAdapter (private var itemClickListener: MoviesListFragment.OnIte
         holder.bind(ActorsData[position])
     }
 
-    override fun getItemCount(): Int {
-        return ActorsData.size
-    }
+    override fun getItemCount() = ActorsData.size
 
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(actors: Actors) = with(binding) {

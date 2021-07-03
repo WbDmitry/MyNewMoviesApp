@@ -1,5 +1,6 @@
 package com.example.mynewmoviesapp.ui.main.movieInfo
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,18 +13,24 @@ class MovieInfoFragment : Fragment() {
     private var _binding: MovieInfoFragmentBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = MovieInfoFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    @SuppressLint("SetTextI18n")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = with(binding) {
         super.onViewCreated(view, savedInstanceState)
-            arguments?.getParcelable<Actors>(BUNDLE_EXTRA)?.let {
+        arguments?.getParcelable<Actors>(BUNDLE_EXTRA)?.let {
             val movie = it.movie
-            binding.movieTitle.text = movie.title
-            binding.movieDescription.text = movie.description
-            binding.moviePoster.setImageResource(movie.poster)
+            movieTitle.text = movie.title
+            movieDescription.text = movie.description
+            moviePoster.setImageResource(movie.poster)
+            actorName.text = it.name + " " + it.surname
         }
     }
 
@@ -35,7 +42,7 @@ class MovieInfoFragment : Fragment() {
     companion object {
         const val BUNDLE_EXTRA = "actors"
 
-        fun newInstance(bundle: Bundle):MovieInfoFragment {
+        fun newInstance(bundle: Bundle): MovieInfoFragment {
             val fragment = MovieInfoFragment()
             fragment.arguments = bundle
             return fragment
