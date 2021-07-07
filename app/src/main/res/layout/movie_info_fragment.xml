@@ -2,11 +2,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/containerMovieInfo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/margin_15_dp"
     android:background="@color/white"
-    android:id="@+id/containerMovieInfo">
+    android:clickable="true"
+    android:padding="@dimen/margin_15_dp"
+    android:focusable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainView"
@@ -21,7 +23,7 @@
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/movieTitle"
@@ -45,19 +47,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movieTitle"
             tools:text="@string/example_description" />
-
-        <TextView
-            android:id="@+id/actorName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:background="@color/teal_700"
-            tools:text="@string/example_actor"
-            android:padding="@dimen/padding_5_dp"
-            android:layout_marginTop="@dimen/margin_15_dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/movieDescription"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,9 +1,8 @@
 package com.example.mynewmoviesapp.model.repository
 
-import com.example.mynewmoviesapp.model.entites.Actors
+import com.example.mynewmoviesapp.model.entites.Movie
 
 interface Repository {
-    fun getMoviesFromServer(): Actors
-    fun getMoviesFromLocalStorageCategoryOne(): List<Actors>
-    fun getMoviesFromLocalStorageCategoryTwo(): List<Actors>
+    fun getMovieFromServer(id: Int): Movie
+    fun getListNewMoviesFromServer(): List<Movie>
 }

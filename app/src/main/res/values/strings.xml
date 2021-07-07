@@ -2,9 +2,6 @@
     <string name="app_name">MoviesApp</string>
     <string name="example_description">Описание фильма</string>
     <string name="example_title">Название фильма</string>
-    <string name="example_actor">Актёр</string>
-    <string name="back">Вернуться</string>
-    <string name="change_category">Изменить категорию</string>
     <string name="error">Ошибка</string>
     <string name="reload">Перезагрузить</string>
 </resources>
