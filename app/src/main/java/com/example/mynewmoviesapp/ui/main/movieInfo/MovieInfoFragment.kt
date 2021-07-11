@@ -6,8 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.mynewmoviesapp.R
 import com.example.mynewmoviesapp.databinding.MovieInfoFragmentBinding
-import com.example.mynewmoviesapp.model.entites.Actors
+import com.example.mynewmoviesapp.model.entites.Movie
 
 class MovieInfoFragment : Fragment() {
     private var _binding: MovieInfoFragmentBinding? = null
@@ -25,12 +26,10 @@ class MovieInfoFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = with(binding) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.getParcelable<Actors>(BUNDLE_EXTRA)?.let {
-            val movie = it.movie
-            movieTitle.text = movie.title
-            movieDescription.text = movie.description
-            moviePoster.setImageResource(movie.poster)
-            actorName.text = it.name + " " + it.surname
+        arguments?.getParcelable<Movie>(BUNDLE_EXTRA)?.let {
+            movieTitle.text = it.title
+            movieDescription.text = it.overview
+            moviePoster.setImageResource(R.drawable.no_img)
         }
     }
 
@@ -40,7 +39,7 @@ class MovieInfoFragment : Fragment() {
     }
 
     companion object {
-        const val BUNDLE_EXTRA = "actors"
+        const val BUNDLE_EXTRA = "movie"
 
         fun newInstance(bundle: Bundle): MovieInfoFragment {
             val fragment = MovieInfoFragment()

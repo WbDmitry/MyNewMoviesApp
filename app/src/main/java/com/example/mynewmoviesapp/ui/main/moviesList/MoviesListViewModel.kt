@@ -1,6 +1,5 @@
 package com.example.mynewmoviesapp.ui.main.moviesList
 
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mynewmoviesapp.model.AppState
@@ -11,26 +10,26 @@ import java.lang.Thread.sleep
 class MoviesListViewModel(
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData(),
     private val repository: Repository = RepositoryImpl()
-) :
-    ViewModel() {
+) : ViewModel() {
 
     fun getLiveData() = liveDataToObserve
-    fun getMoviesFromLocalStorageCategoryOne() = getDataFromLocalSource(isRussian = true)
+    fun getData() = getDataFromLocalSource()
 
-    fun getMoviesFromLocalStorageCategoryTwo() = getDataFromLocalSource(isRussian = false)
-
-    fun getWeatherFromRemoteSource() = getDataFromLocalSource(isRussian = true)
-
-    private fun getDataFromLocalSource(isRussian: Boolean) {
+    private fun getDataFromLocalSource() {
         liveDataToObserve.value = AppState.Loading
         Thread {
             sleep(1000)
-            liveDataToObserve.postValue(
-                AppState.Success(
-                    if (isRussian) repository.getMoviesFromLocalStorageCategoryTwo()
-                    else repository.getMoviesFromLocalStorageCategoryOne()
-                )
-            )
+            try {
+                liveDataToObserve.postValue(
+                    AppState.Success(
+                        repository.getListNewMoviesFromServer()
+                    ))
+            } catch (ex: Exception) {
+                liveDataToObserve.postValue(
+                    AppState.Error(
+                        error = ex
+                    ))
+            }
         }.start()
     }
 }
